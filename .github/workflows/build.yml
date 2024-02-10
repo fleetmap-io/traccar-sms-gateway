@@ -1,15 +1,15 @@
 name: build
 on:
-    push:
-        branches:
-            - master
+  push:
+    branches:
+      - master
 permissions:
-    contents: read
-    pages: write
-    id-token: write
+  contents: read
+  pages: write
+  id-token: write
 jobs:
-    build_android:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - run: fastlane run build_android_app
+  build_android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: fastlane run build_android_app
