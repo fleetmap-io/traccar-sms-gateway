@@ -26,5 +26,5 @@ jobs:
           upload_url: "https://uploads.github.com/repos/jcardus/traccar-sms-gateway/releases/1"
           asset_path: ./app/build/outputs/apk/traccar/release/sms-messenger-traccar-release-unsigned.apk
           asset_name: sms-messenger-traccar-release-unsigned.apk
-          asset_content_type: application/vnd.android.package-archive
+          asset_content_type: application/zip
 
