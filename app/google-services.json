@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "874065218338",
+    "project_id": "traccar-smsgateway",
+    "storage_bucket": "traccar-smsgateway.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874065218338:android:8a8a02fefe7e510abbf37b",
+        "android_client_info": {
+          "package_name": "com.fleetmap.gateway"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVcO2iKRrpLVlGTGXKmnWWXp796ceF99o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
