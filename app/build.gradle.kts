@@ -74,7 +74,7 @@ android {
         register("prepaid")
         register("traccar") {
             isDefault = true
-            applicationId = "org.traccar.gateway"
+            applicationId = "com.fleetmap.gateway"
             versionCode = 15
             versionName = "5.7"
         }
