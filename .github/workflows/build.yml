@@ -17,7 +17,7 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
       - run: |
-          mkdir /etc/runner
+          sudo mkdir /etc/runner
           echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > /etc/runner/keystore
           fastlane build
       - uses: actions/upload-artifact@v1
