@@ -123,9 +123,3 @@ dependencies {
     "traccarImplementation"(libs.firebase.crashlytics)
     "traccarImplementation"(libs.firebase.messaging)
 }
-
-afterEvaluate {
-    tasks.matching { it.name.contains("Traccar") }.configureEach {
-        dependsOn("copyFirebaseConfig")
-    }
-}
