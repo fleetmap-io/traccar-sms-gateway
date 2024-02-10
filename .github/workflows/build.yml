@@ -17,18 +17,14 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
       - run: fastlane build
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v4
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
-          prerelease: false
+          upload_url: "https://uploads.github.com/repos/jcardus/traccar-sms-gateway/releases/1
+          asset_path: ./app/build/outputs/apk/traccar/release
+          asset_name: sms-messenger-traccar-release-unsigned.apk
+          asset_content_type: application/vnd.android.package-archive
 
