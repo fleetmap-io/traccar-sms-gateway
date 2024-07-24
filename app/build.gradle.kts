@@ -10,6 +10,8 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     base
+
+    id("io.sentry.android.gradle") version "4.10.0"
 }
 
 base {
@@ -122,4 +124,14 @@ dependencies {
     "traccarImplementation"(libs.firebase.analytics)
     "traccarImplementation"(libs.firebase.crashlytics)
     "traccarImplementation"(libs.firebase.messaging)
+}
+
+
+sentry {
+    org.set("gateway-3s")
+    projectName.set("android")
+
+    // this will upload your source code to Sentry to show it as part of the stack traces
+    // disable if you don't want to expose your sources
+    includeSourceContext.set(true)
 }
