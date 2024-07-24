@@ -16,7 +16,7 @@ import com.simplemobiletools.commons.models.SimpleContact
 import com.simplemobiletools.smsmessenger.extensions.*
 import com.simplemobiletools.smsmessenger.helpers.refreshMessages
 import com.simplemobiletools.smsmessenger.models.Message
-import org.traccar.gateway.Firestore
+// import org.traccar.gateway.Firestore
 
 class SmsReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -67,7 +67,7 @@ class SmsReceiver : BroadcastReceiver() {
         subscriptionId: Int,
         status: Int
     ) {
-        Firestore().log(address, System.currentTimeMillis().toString(), "SMS Received", body)
+        // Firestore().log(address, System.currentTimeMillis().toString(), "SMS Received", body)
         if (isMessageFilteredOut(context, body)) {
             return
         }
