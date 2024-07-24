@@ -32,7 +32,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: "https://uploads.github.com/repos/jcardus/traccar-sms-gateway/releases/1"
+          upload_url: "https://uploads.github.com/repos/fleetmap-io/traccar-sms-gateway/releases/1"
           asset_path: app/build/outputs/apk/traccar/release/sms-messenger-traccar-release-unsigned.apk
           asset_name: app
           asset_content_type: application/zip
