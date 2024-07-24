@@ -122,4 +122,5 @@ dependencies {
     "traccarImplementation"(libs.firebase.analytics)
     "traccarImplementation"(libs.firebase.crashlytics)
     "traccarImplementation"(libs.firebase.messaging)
+    "traccarImplementation"(libs.firebase.firestore)
 }
