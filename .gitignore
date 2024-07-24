@@ -11,6 +11,3 @@ keystore.properties
 fastlane/fastlane.json
 Gemfile
 Gemfile.lock
-
-# Sentry Config File
-sentry.properties
