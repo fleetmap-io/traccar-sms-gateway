@@ -23,17 +23,24 @@ jobs:
         with:
           name: app
           path: app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk
-      - uses: actions/upload-pages-artifact@v2
+      - name: Deploy to Pages
+        run: |
+            mkdir -p public
+            mv app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk public/
+            echo "Download the APK from the link below:" > public/index.html
+            echo "<a href='sms-messenger-traccar-release.apk'>Download APK</a>" >> public/index.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: app/build/outputs/apk/traccar/release
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+      - uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: "https://uploads.github.com/repos/fleetmap-io/traccar-sms-gateway/releases/1"
-          asset_path: app/build/outputs/apk/traccar/release/sms-messenger-traccar-release-unsigned.apk
+          asset_path: public/sms-messenger-traccar-release.apk
           asset_name: app
           asset_content_type: application/zip
 
