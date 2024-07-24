@@ -18,23 +18,27 @@ jobs:
           java-version: '17'
       - run: |
           echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > /home/runner/keystore
-          fastlane build
-      - uses: actions/upload-artifact@v1
-        with:
-          name: app
-          path: app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk
+          echo "fastlane build"
+
       - name: Deploy to Pages
         run: |
-            mkdir -p public
-            mv app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk public/
+            mkdir -pv public
+            echo "mv -v app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk public/"
             echo "Download the APK from the link below:" > public/index.html
             echo "<a href='sms-messenger-traccar-release.apk'>Download APK</a>" >> public/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: app
+          path: app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk
+
+
+
       - uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
