@@ -38,7 +38,7 @@ class GatewayMessagingService : FirebaseMessagingService() {
             }
 
             try {
-                SmsManager.getDefault().sendTextMessage(phone, null, message,
+                this.getSystemService(SmsManager::class.java).sendTextMessage(phone, null, message,
                     PendingIntent.getBroadcast(this, 0, sentIntent, PendingIntent.FLAG_IMMUTABLE),
                     PendingIntent.getBroadcast(this, 0, deliveryIntent, PendingIntent.FLAG_IMMUTABLE)
                 )
