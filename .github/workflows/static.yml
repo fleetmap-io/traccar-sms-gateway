@@ -37,6 +37,7 @@ jobs:
           java-version: '17'
       - run: |
           echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > /home/runner/keystore
+          echo "auth.token=${{ secrets.SENTRY_AUTH_TOKEN }}" > sentry.properties            
           fastlane build
       - name: Setup Pages
         uses: actions/configure-pages@v5
