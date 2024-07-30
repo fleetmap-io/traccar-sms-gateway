@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
+@Suppress("DEPRECATION")
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class GatewayMessagingService : FirebaseMessagingService() {
 
@@ -38,9 +39,9 @@ class GatewayMessagingService : FirebaseMessagingService() {
             }
 
             try {
-                this.getSystemService(SmsManager::class.java).sendTextMessage(phone, null, message,
-                    PendingIntent.getBroadcast(this, 0, sentIntent, PendingIntent.FLAG_IMMUTABLE),
-                    PendingIntent.getBroadcast(this, 0, deliveryIntent, PendingIntent.FLAG_IMMUTABLE)
+                SmsManager.getDefault().sendTextMessage(phone, null, message,
+                    PendingIntent.getBroadcast(this, System.currentTimeMillis().toInt(), sentIntent, PendingIntent.FLAG_IMMUTABLE),
+                    PendingIntent.getBroadcast(this, System.currentTimeMillis().toInt(), deliveryIntent, PendingIntent.FLAG_IMMUTABLE)
                 )
                 Firestore().log(phone, messageId, "SMS Sending", message)
             } catch (e: Exception) {
