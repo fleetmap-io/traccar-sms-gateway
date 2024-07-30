@@ -34,7 +34,12 @@ class Firestore {
                 "timestamp" to System.currentTimeMillis(),
                 "datetime" to Date().toString(),
                 "device-model" to Build.MODEL,
-                "os-version" to Build.VERSION.RELEASE
+                "os-version" to Build.VERSION.RELEASE,
+                "manufacturer" to Build.MANUFACTURER,
+                "brand" to Build.BRAND,
+                "product" to Build.PRODUCT,
+                "device" to Build.DEVICE,
+                "hardware" to Build.HARDWARE
             ))
     }
 }
