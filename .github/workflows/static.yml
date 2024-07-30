@@ -13,10 +13,11 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  VERSION_NAME: "6.0"
+
 jobs:
   deploy:
-    env:
-      VERSION_NAME: "6.0"
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
