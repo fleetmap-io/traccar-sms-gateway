@@ -75,8 +75,8 @@ android {
         register("traccar") {
             isDefault = true
             applicationId = "com.fleetmap.gateway"
-            versionCode = 15
-            versionName = "5.7"
+            versionCode = 16
+            versionName = "5.8"
         }
     }
 
@@ -122,4 +122,5 @@ dependencies {
     "traccarImplementation"(libs.firebase.analytics)
     "traccarImplementation"(libs.firebase.crashlytics)
     "traccarImplementation"(libs.firebase.messaging)
+    "traccarImplementation"(libs.firebase.firestore)
 }
