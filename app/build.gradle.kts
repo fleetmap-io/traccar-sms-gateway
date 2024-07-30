@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     base
-    id("io.sentry.android.gradle") version "4.10.0"
+    // id("io.sentry.android.gradle") version "4.10.0"
 }
 
 base {

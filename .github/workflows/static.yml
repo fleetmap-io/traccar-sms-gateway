@@ -42,10 +42,16 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - run: |
+            VERSION_CODE=$(./gradlew printVersion | grep VERSION_CODE | awk -F= '{print $2}')
+            VERSION_NAME=$(./gradlew printVersion | grep VERSION_NAME | awk -F= '{print $2}')
+            echo "VERSION_CODE=${VERSION_CODE}"
+            echo "VERSION_NAME=${VERSION_NAME}"
+            echo "::set-output name=version_code::${VERSION_CODE}"
+            echo "::set-output name=version_name::${VERSION_NAME}"
             mkdir -pv public
-            mv -v app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk public
-            echo "Download the APK from the link below:" > public/index.html
-            echo "<a href='sms-messenger-traccar-release.apk'>Download APK</a>" >> public/index.html
+            mv -v app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk "public/fleetmap-sms-${VERSION_CODE}.apk"
+            echo "Download the APK ${VERSION_CODE} from the link below:" > public/index.html
+            echo "<a href='fleetmap-sms-${VERSION_CODE}.apk'>Download APK</a>" >> public/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
