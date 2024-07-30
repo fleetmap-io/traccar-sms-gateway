@@ -77,7 +77,7 @@ android {
             isDefault = true
             applicationId = "com.fleetmap.gateway"
             versionCode = 16
-            versionName = "5.8"
+            versionName = "6.1"
         }
     }
 
