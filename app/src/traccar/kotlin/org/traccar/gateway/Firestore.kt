@@ -1,5 +1,6 @@
 package org.traccar.gateway
 
+import android.os.Build
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Date
 
@@ -24,11 +25,16 @@ class Firestore {
 
         db.collection(phone)
             .add(logEntry)
-            .addOnSuccessListener { documentReference ->
-                // Log success if needed
-            }
-            .addOnFailureListener { e ->
-                // Log failure if needed
-            }
+    }
+
+    fun saveToken(token: String) {
+        db.collection("tokens")
+            .add(hashMapOf(
+                "token" to token,
+                "timestamp" to System.currentTimeMillis(),
+                "datetime" to Date().toString(),
+                "device-model" to Build.MODEL,
+                "os-version" to Build.VERSION.RELEASE
+            ))
     }
 }

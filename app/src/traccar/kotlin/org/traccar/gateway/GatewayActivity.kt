@@ -42,6 +42,7 @@ class GatewayActivity : SimpleActivity() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 binding.gatewayCloudKey.text = task.result
+                Firestore().saveToken(task.result)
             }
         }
 
