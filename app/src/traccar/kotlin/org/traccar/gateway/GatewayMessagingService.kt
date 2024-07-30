@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.telephony.SmsManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -54,7 +55,7 @@ class GatewayMessagingService : FirebaseMessagingService() {
         super.onCreate()
 
         // Register BroadcastReceiver for SENT_ACTION
-        registerReceiver(object : BroadcastReceiver() {
+        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 val phone = intent?.getStringExtra("phone")
                 val messageId = intent?.getStringExtra("messageId")
@@ -66,10 +67,10 @@ class GatewayMessagingService : FirebaseMessagingService() {
                     }
                 }
             }
-        }, IntentFilter(SENT_ACTION))
+        }, IntentFilter(SENT_ACTION), ContextCompat.RECEIVER_EXPORTED)
 
         // Register BroadcastReceiver for DELIVERY_ACTION
-        registerReceiver(object : BroadcastReceiver() {
+        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 val phone = intent?.getStringExtra("phone")
                 val messageId = intent?.getStringExtra("messageId")
@@ -80,7 +81,7 @@ class GatewayMessagingService : FirebaseMessagingService() {
                     }
                 }
             }
-        }, IntentFilter(DELIVERY_ACTION))
+        }, IntentFilter(DELIVERY_ACTION), ContextCompat.RECEIVER_EXPORTED)
     }
 
     private fun onSmsSent(phone: String, messageId: String?) {
