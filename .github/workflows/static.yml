@@ -52,4 +52,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      - run: fastlane deploy
+      - run: |
+          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_PLAY_STORE }}" | base64 --decode > google-secret.json
+          fastlane deploy
