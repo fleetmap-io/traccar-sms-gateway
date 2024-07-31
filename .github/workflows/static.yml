@@ -13,10 +13,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-env:
-  VERSION_NAME: '"6.3"'
-  VERSION_CODE: ${{ github.run_number }}
-
 jobs:
   deploy:
     environment:
@@ -51,10 +47,10 @@ jobs:
         uses: actions/configure-pages@v5
       - run: |
             mkdir -pv public
-            cp -v app/build/outputs/apk/traccar/release/* public
-            cp -v app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk "public/fleetmap-sms-$VERSION_CODE.apk"
-            echo "Download the APK $VERSION_NAME from the link below:" > public/index.html
-            echo "<a href='fleetmap-sms-$VERSION_CODE.apk'>Download APK $VERSION_NAME</a>" >> public/index.html
+            cp -v app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk "public/fleetmap-sms-${{ github.run_number }}.apk"
+            cp -v app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk public
+            echo "Download the APK ${{ github.run_number }} from the link below:" > public/index.html
+            echo "<a href='fleetmap-sms-${{ github.run_number }}.apk'>Download APK ${{ github.run_number }}</a>" >> public/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -62,6 +58,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      - run: |
-          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_PLAY_STORE }}" | base64 --decode > google-secret.json
-          fastlane deploy
