@@ -8,7 +8,7 @@ platform :android do
         version_name: ENV["VERSION_NAME"],
         gradle_file: "app/build.gradle.kts"
     )
-    android_set_version_name(
+    android_set_version_code(
         version_code: ENV["VERSION_CODE"],
         gradle_file: "app/build.gradle.kts"
     )
