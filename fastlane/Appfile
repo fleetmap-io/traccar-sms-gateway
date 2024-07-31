@@ -1,1 +1,2 @@
 package_name("com.fleetmap.gateway")
+json_key_file("google-secret.json")
