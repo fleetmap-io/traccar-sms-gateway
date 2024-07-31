@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  VERSION_NAME: '"6.2"'
+  VERSION_NAME: '"6.3"'
   VERSION_CODE: ${{ github.run_number }}
 
 jobs:

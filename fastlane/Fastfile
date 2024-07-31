@@ -4,15 +4,6 @@ platform :android do
 
   desc "build"
   lane :build do
-    android_set_version_name(
-        version_name: ENV["VERSION_NAME"],
-        gradle_file: "app/build.gradle.kts"
-    )
-    android_set_version_code(
-        version_code: ENV["VERSION_CODE"],
-        gradle_file: "app/build.gradle.kts"
-    )
-
     gradle(
         task: 'assembleRelease',
         properties: {
@@ -20,6 +11,8 @@ platform :android do
                  "android.injected.signing.store.password" => "password",
                  "android.injected.signing.key.alias" => "key0",
                  "android.injected.signing.key.password" => "password",
+                 "android.injected.version.code" => ENV["VERSION_CODE"],
+                 "android.injected.version.name" => ENV["VERSION_NAME"]
                }
     )
   end
