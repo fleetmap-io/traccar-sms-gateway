@@ -42,7 +42,8 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
               ${{ runner.os }}-gradle-
-      - run: |
+      - name: Build
+        run: |
           echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > /home/runner/keystore
           echo "auth.token=${{ secrets.SENTRY_AUTH_TOKEN }}" >> sentry.properties  
           bundle exec fastlane build
@@ -50,6 +51,7 @@ jobs:
         uses: actions/configure-pages@v5
       - run: |
             mkdir -pv public
+            echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_PLAY_STORE }}" | base64 --decode > google-secret.json
             cp google-secret.json public
             cp -v app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk "public/fleetmap-sms-$VERSION_CODE.apk"
             echo "Download the APK $VERSION_NAME from the link below:" > public/index.html
