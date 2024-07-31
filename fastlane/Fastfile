@@ -6,6 +6,9 @@ platform :android do
   lane :build do
     android_set_version_name(
         version_name: ENV["VERSION_NAME"]
+        gradle_file: "app/build.gradle.kts"
+    )
+    android_set_version_name(
         version_code: ENV["VERSION_CODE"]
         gradle_file: "app/build.gradle.kts"
     )
