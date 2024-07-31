@@ -34,6 +34,14 @@ jobs:
         with:
           ruby-version: '3.3'
           bundler-cache: true
+      - uses: actions/cache@v3
+        with:
+          path: |
+              ~/.gradle/caches
+              ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+              ${{ runner.os }}-gradle-
       - run: |
           echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > /home/runner/keystore
           echo "auth.token=${{ secrets.SENTRY_AUTH_TOKEN }}" >> sentry.properties  
@@ -42,9 +50,9 @@ jobs:
         uses: actions/configure-pages@v5
       - run: |
             mkdir -pv public
-            cp -v app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk "public/fleetmap-sms-$VERSION_NAME.apk"
+            cp -v app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk "public/fleetmap-sms-$VERSION_CODE.apk"
             echo "Download the APK $VERSION_NAME from the link below:" > public/index.html
-            echo "<a href='fleetmap-sms-$VERSION_NAME.apk'>Download APK $VERSION_NAME</a>" >> public/index.html
+            echo "<a href='fleetmap-sms-$VERSION_CODE.apk'>Download APK $VERSION_NAME</a>" >> public/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
