@@ -48,9 +48,7 @@ jobs:
       - run: |
             mkdir -pv public
             cp -v app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk "public/fleetmap-sms-${{ github.run_number }}.apk"
-            cp -v app/build/outputs/apk/traccar/release/sms-messenger-traccar-release.apk public
-            echo "Download the APK ${{ github.run_number }} from the link below:" > public/index.html
-            echo "<a href='fleetmap-sms-${{ github.run_number }}.apk'>Download APK ${{ github.run_number }}</a>" >> public/index.html
+            echo "<h1><a href='fleetmap-sms-${{ github.run_number }}.apk'>Download APK ${{ github.run_number }}</a></h1>" > public/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
