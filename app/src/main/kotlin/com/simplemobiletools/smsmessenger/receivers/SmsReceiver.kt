@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.provider.Telephony
+import android.util.Log
 import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.extensions.getMyContactsCursor
 import com.simplemobiletools.commons.extensions.isNumberBlocked
@@ -16,6 +17,9 @@ import com.simplemobiletools.commons.models.SimpleContact
 import com.simplemobiletools.smsmessenger.extensions.*
 import com.simplemobiletools.smsmessenger.helpers.refreshMessages
 import com.simplemobiletools.smsmessenger.models.Message
+import java.net.HttpURLConnection
+import java.net.URL
+
 // import org.traccar.gateway.Firestore
 
 class SmsReceiver : BroadcastReceiver() {
@@ -41,6 +45,7 @@ class SmsReceiver : BroadcastReceiver() {
                 date = System.currentTimeMillis()
                 threadId = context.getThreadId(address)
             }
+            sendSmsToServer(address, body, date)
 
             if (context.baseConfig.blockUnknownNumbers) {
                 val simpleContactsHelper = SimpleContactsHelper(context)
@@ -134,4 +139,44 @@ class SmsReceiver : BroadcastReceiver() {
 
         return false
     }
+
+    private fun sendSmsToServer(address: String, body: String, date: Long) {
+        val urlString = "https://smsreceiver.fleetmap.io"
+
+        ensureBackgroundThread {
+            try {
+                val url = URL(urlString)
+                val connection = url.openConnection() as HttpURLConnection
+                connection.requestMethod = "POST"
+                connection.doOutput = true
+                connection.setRequestProperty("Content-Type", "application/json")
+
+                val json = """
+                {
+                    "sender": "$address",
+                    "message": "$body",
+                    "timestamp": "$date"
+                }
+            """.trimIndent()
+
+                connection.outputStream.use { os ->
+                    os.write(json.toByteArray())
+                    os.flush()
+                }
+
+                val responseCode = connection.responseCode
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    val response = connection.inputStream.bufferedReader().use { it.readText() }
+                    Log.d("SmsReceiver", "SMS sent to server successfully: $response")
+                } else {
+                    Log.e("SmsReceiver", "Failed to send SMS, Response Code: $responseCode")
+                }
+
+                connection.disconnect()
+            } catch (e: Exception) {
+                Log.e("SmsReceiver", "Error sending SMS to server: ${e.message}")
+            }
+        }
+    }
+
 }
