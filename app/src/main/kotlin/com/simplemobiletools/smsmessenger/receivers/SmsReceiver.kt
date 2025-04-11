@@ -19,6 +19,7 @@ import com.simplemobiletools.smsmessenger.helpers.refreshMessages
 import com.simplemobiletools.smsmessenger.models.Message
 import java.net.HttpURLConnection
 import java.net.URL
+import org.json.JSONObject
 
 // import org.traccar.gateway.Firestore
 
@@ -151,13 +152,11 @@ class SmsReceiver : BroadcastReceiver() {
                 connection.doOutput = true
                 connection.setRequestProperty("Content-Type", "application/json")
 
-                val json = """
-                {
-                    "sender": "$address",
-                    "message": "$body",
-                    "timestamp": "$date"
-                }
-            """.trimIndent()
+                val json = JSONObject().apply {
+                    put("sender", address)
+                    put("message", body)
+                    put("timestamp", date)
+                }.toString()
 
                 connection.outputStream.use { os ->
                     os.write(json.toByteArray())
