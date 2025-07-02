@@ -32,9 +32,6 @@ android {
         targetSdk = project.libs.versions.app.build.targetSDK.get().toInt()
         versionName = project.libs.versions.app.version.versionName.get()
         versionCode = project.libs.versions.app.version.versionCode.get().toInt()
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
     }
 
     signingConfigs {
@@ -76,8 +73,8 @@ android {
         register("traccar") {
             isDefault = true
             applicationId = "com.fleetmap.gateway"
-            versionCode = 16
-            versionName = "6.4"
+            versionCode = 17
+            versionName = "6.5"
         }
     }
 
@@ -104,7 +101,9 @@ android {
 }
 
 dependencies {
-    implementation(libs.simple.mobile.tools.commons)
+    implementation(libs.simple.mobile.tools.commons) {
+        exclude(group = "com.github.duolingo")
+    }
     implementation(libs.eventbus)
     implementation(libs.indicator.fast.scroll)
     implementation(libs.android.smsmms)
