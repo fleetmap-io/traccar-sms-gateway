@@ -67,9 +67,6 @@ android {
 
     flavorDimensions.add("variants")
     productFlavors {
-        register("core")
-        register("fdroid")
-        register("prepaid")
         register("traccar") {
             isDefault = true
             applicationId = "com.fleetmap.gateway"
