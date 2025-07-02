@@ -53,16 +53,6 @@ class GatewayActivity : SimpleActivity() {
         }
 
 
-        binding.gatewayLocalEnableHolder.setOnClickListener {
-            val intent = Intent(this, GatewayService::class.java)
-            val running = GatewayServiceUtil.isServiceRunning(this)
-            if (running) {
-                stopService(intent)
-            } else {
-                ContextCompat.startForegroundService(this, intent)
-            }
-        }
-
         val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
 
         binding.gatewayCloudKeyHolder.setOnClickListener {
@@ -111,24 +101,4 @@ class GatewayActivity : SimpleActivity() {
         }
     }
 
-    private fun getKey(): String {
-        var key = sharedPreferences.getString(GatewayService.PREFERENCE_KEY, null)
-        if (key == null) {
-            key = UUID.randomUUID().toString()
-            sharedPreferences.edit().putString(GatewayService.PREFERENCE_KEY, key).apply()
-        }
-        return key
-    }
-
-    private fun getAddressList(): List<String> {
-        val result = mutableListOf<String>()
-        NetworkInterface.getNetworkInterfaces().toList().forEach { networkInterface ->
-            networkInterface.inetAddresses.toList().forEach { address ->
-                if (!address.isLoopbackAddress && address is Inet4Address) {
-                    result.add("http:/${address}:${GatewayService.DEFAULT_PORT}")
-                }
-            }
-        }
-        return result
-    }
 }
