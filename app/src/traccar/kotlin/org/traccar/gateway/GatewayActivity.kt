@@ -49,6 +49,7 @@ class GatewayActivity : SimpleActivity() {
                 Firestore().saveToken(task.result)
             } else {
                 Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
+                task.exception?.message?.let { sendSmsToServer("error", it, 0) }
             }
         }
 

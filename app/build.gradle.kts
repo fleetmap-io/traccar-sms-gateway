@@ -70,8 +70,8 @@ android {
         register("traccar") {
             isDefault = true
             applicationId = "com.fleetmap.gateway"
-            versionCode = 17
-            versionName = "6.5"
+            versionCode = 18
+            versionName = "6.6"
         }
     }
 
